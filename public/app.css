@@ -1,0 +1,17 @@
+
+
+body{
+    background-color: #000;
+}
+
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+    pointer-events: none;
+}
+
+.rounded-pill{
+    background-color: black;
+}
