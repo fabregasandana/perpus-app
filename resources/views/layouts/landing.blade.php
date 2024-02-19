@@ -22,7 +22,7 @@
     <style>
     @font-face{
         font-family: 'Baloo Bhaijaan';
-        src: url:('BalooBhaijaan-Regular.ttf');
+        src: url('BalooBhaijaan-Regular.ttf');
     }
 
     .dropdown:hover>.dropdown-menu {
@@ -53,7 +53,7 @@
         /* width: 120vw; */
         /* height: 100%; */
         position: relative;
-        top: -46rem;
+        top: -53rem;
         z-index: -1;
         width: 100%;
         /* height: 90vh; */

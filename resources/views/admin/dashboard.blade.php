@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar With Bootstrap</title>
+    <title>Dashboard</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -251,11 +251,7 @@ a.sidebar-link:hover {
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav ms-auto col-lg-2">
                             <li class="nav-item dropdown p-2">
-                                <a class="nav-link dropdown-toggle fw-bold text-dark">Kategori</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a href="{{ url('') }}" class="dropdown-item">Romantis</a></li>
-                                    <li><a href="{{ url('') }}" class="dropdown-item">Komedi</a></li>
-                                    <li><a href="{{ url('') }}" class="dropdown-item">Komik</a></li>
+                                
                                 </ul>
                             </li>
                             <li class="nav-item p-2">

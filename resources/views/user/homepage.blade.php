@@ -25,16 +25,16 @@
 
     <div class="container-fluid">
         <div class="row align-items-center justify-content-center" style="height: 150vh;">
-            <div class="col-md-6 col-sm-6 d-flex justify-content-center" style="">
+            <div class="col-md-6 col-sm-6 d-flex justify-content-center">
                 <div class="col-md-6 col-sm-4 d-flex align-items-start flex-column">
                     <h1 class="title text-start">Find Your <br> Best Friend</h1>
                     <p class="fs-4 col-md-12 text-start">The most appropriate book site</p>    
                 </div>
             </div>
-            <div class="col-md-6 col-sm-4 text-center" style="">
+            <div class="col-md-6 col-sm-4 text-center">
                 <img src="{{ asset('/images/book.png') }}" alt="" class="img-fluid" style="height: 450px;">
             </div>
-            <div class="col-12 p-0 position-relative" style="height: 10vh; nn">
+            <div class="col-12 p-0 position-relative" style="height: 10vh;">
                 <img src="{{ asset('/images/wave.png') }}" alt="" class="wave-1 img-fluid">
             </div>
         </div>
@@ -282,7 +282,7 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid text-baseline p-3 copy col-md-12">
+        <div class="container-fluid text-center p-3 copy col-md-12">
             <h4 class="fw-bold pt-3">&copy; 2024 Copyright: Fabregas Andana</h4>
         </div>
     </footer>
