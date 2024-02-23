@@ -1,16 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Katibeh&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&family=Dela+Gothic+One&family=Katibeh&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    {{-- <link rel="stylesheet" href="{{ asset('app.css') }}"> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
@@ -40,15 +48,14 @@ body {
 
 .wrapper {
     display: flex;
+    min-height: 100vh;
 }
 
 .main {
-    min-height: 100vh;
-    width: 100%;
+    /* width: 100%; */
     overflow: hidden;
     transition: all 0.35s ease-in-out;
     background-color: #fafbfe;
-    
 }
 
 #sidebar {
@@ -155,6 +162,19 @@ a.sidebar-link:hover {
     transform: rotate(45deg);
     transition: all .2s ease-out;
 }
+
+#search{
+    background-color: #eaeaea;
+    height: 35px;
+}
+
+#search::placeholder{
+    text-align: center;
+}
+
+#search:focus{
+    outline-color: #e3e3e3;
+}
     </style>
 </head>
 
@@ -240,70 +260,68 @@ a.sidebar-link:hover {
                 </a>
             </div>
         </aside>
-        <div class="main">
-            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm z-1 border border-bottom" style="--bs-border-opacity: .5;">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-    
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <!-- Left Side Of Navbar -->
-                        <ul class="navbar-nav ms-auto col-lg-2">
-                            <li class="nav-item dropdown p-2">
-                                
-                                </ul>
-                            </li>
-                            <li class="nav-item p-2">
-                                <a href="{{ url('') }}" class="nav-link fw-bold text-dark">Rekomendasi</a>
-                            </li>
-                            <li class="nav-item p-2">
-                                <a href="{{ url('') }}" class="nav-link fw-bold text-dark">Populer</a>
-                            </li>
-                        </ul>
-    
-                        <!-- Right Side Of Navbar -->
-                        <ul class="navbar-nav ms-auto me-4 gap-4">
-                            <!-- Authentication Links -->
-                            @guest
-                                @if (Route::has('login'))
-                                    <a class="nav-link fw-bold" href="{{ route('login') }}" style=" color: #000;">{{ __('Login') }}</a>
-                                @endif
-    
-                                @if (Route::has('register'))
-                                    <a class="nav-link rounded-pill text-white fw-normal d-flex align-items-center justify-content-center" href="{{ route('register') }}" style="background-color: #000; width: 5rem;">{{ __('Register') }}</a>
-                                @endif
-                            @else
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }}
-                                    </a>
-    
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        @auth
-                                            @if (Auth::user()->utype === 'ADM')
-                                                <a class="dropdown-item" href="">Dashboard</a>
-                                            @else
-                                                <a class="dropdown-item" href="">Account</a>
-                                            @endif
-                                        @endauth
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-    
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    </div>
+        <div class="main p-0 container-fluid">
+            <div id="app">
+                <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm z-1 border border-bottom" style="--bs-border-opacity: .5;">
+                    <div class="container-fluid">
+                        <a class="navbar-brand d-flex align-items-center" href="{{ url('/index') }}">
+                            <p class="h2 ps-1" style="font-family: 'Dela Gothic One'">dPerpus</p>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+        
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <!-- Left Side Of Navbar -->
+                            <ul class="navbar-nav ms-auto col-lg-4" style="">
+                                <li class="nav-item col-md-12">
+                                    <input type="search" name="search" id="search" class="rounded-pill border-0 w-100" placeholder="Cari Judul Buku">
                                 </li>
-                            @endguest
-                        </ul>
+                            </ul>
+        
+                            <!-- Right Side Of Navbar -->
+                            <ul class="navbar-nav ms-auto me-4 gap-4">
+                                <!-- Authentication Links -->
+                                @guest
+                                    @if (Route::has('login'))
+                                        <a class="nav-link fw-bold" href="{{ route('login') }}" style=" color: #000;">{{ __('Login') }}</a>
+                                    @endif
+        
+                                    @if (Route::has('register'))
+                                        <a class="nav-link rounded-pill text-white fw-normal d-flex align-items-center justify-content-center" href="{{ route('register') }}" style="background-color: #000; width: 5rem;">{{ __('Register') }}</a>
+                                    @endif
+                                @else
+                                    <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{ Auth::user()->name }}
+                                        </a>
+        
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            @auth
+                                                @if (Auth::user()->utype === 'ADM')
+                                                    <a class="dropdown-item" href="">Dashboard</a>
+                                                @else
+                                                    <a class="dropdown-item" href="">Account</a>
+                                                @endif
+                                            @endauth
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                               onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+        
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </li>
+                                @endguest
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
-        </div>
+                </nav>
+            </div>
+        @yield('card')
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
@@ -311,9 +329,9 @@ a.sidebar-link:hover {
     <script>
         const hamBurger = document.querySelector(".toggle-btn");
 
-    hamBurger.addEventListener("click", function () {
-    document.querySelector("#sidebar").classList.toggle("expand");
-    });
+        hamBurger.addEventListener("click", function () {
+        document.querySelector("#sidebar").classList.toggle("expand");
+        });
     </script>
 </body>
 

@@ -214,8 +214,8 @@
                 </div>
             </div>
         </nav>
-
     </div>
+    
     <main class="">
         @yield('content')
         @yield('content-1')

@@ -11,6 +11,10 @@ class PerpusController extends Controller
     }
 
     public function dashboard(){
-        return view ('admin.dashboard');
+        return view ('admin.index');
+    }
+
+    public function addData(){
+        return view ('admin.create');
     }
 }
