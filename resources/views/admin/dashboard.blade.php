@@ -18,9 +18,9 @@
     {{-- <link rel="stylesheet" href="{{ asset('app.css') }}"> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss'])
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 ::after,
 ::before {
@@ -48,11 +48,11 @@ body {
 
 .wrapper {
     display: flex;
-    min-height: 100vh;
 }
 
 .main {
-    /* width: 100%; */
+    min-height: 100vh;
+    width: 100%;
     overflow: hidden;
     transition: all 0.35s ease-in-out;
     background-color: #fafbfe;
@@ -64,13 +64,15 @@ body {
     z-index: 1000;
     transition: all .25s ease-in-out;
     background-color: #0e2238;
+    /* background: linear-gradient(180deg, rgba(193, 236, 245, .5), #C1ECF5); */
     display: flex;
     flex-direction: column;
 }
 
 #sidebar.expand {
-    width: 260px;
-    min-width: 260px;
+    width: 240px;
+    min-width: 240px;
+    border-radius: 0 50px 50px 0;
 }
 
 .toggle-btn {
@@ -175,6 +177,10 @@ a.sidebar-link:hover {
 #search:focus{
     outline-color: #e3e3e3;
 }
+
+.add{
+    min-height: 90vh;
+}
     </style>
 </head>
 
@@ -186,7 +192,7 @@ a.sidebar-link:hover {
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
-                    <a href="#">CodzSword</a>
+                    <a href="#">dPerpus</a>
                 </div>
             </div>
             <ul class="sidebar-nav">
@@ -198,8 +204,8 @@ a.sidebar-link:hover {
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Task</span>
+                        <i class="lni lni-book"></i>
+                        <span>Data Buku</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -253,29 +259,31 @@ a.sidebar-link:hover {
                     </a>
                 </li>
             </ul>
-            <div class="sidebar-footer">
-                <a href="#" class="sidebar-link">
-                    <i class="lni lni-exit"></i>
-                    <span>Logout</span>
-                </a>
-            </div>
         </aside>
         <div class="main p-0 container-fluid">
             <div id="app">
                 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm z-1 border border-bottom" style="--bs-border-opacity: .5;">
                     <div class="container-fluid">
-                        <a class="navbar-brand d-flex align-items-center" href="{{ url('/index') }}">
-                            <p class="h2 ps-1" style="font-family: 'Dela Gothic One'">dPerpus</p>
-                        </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                             <span class="navbar-toggler-icon"></span>
                         </button>
         
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <!-- Left Side Of Navbar -->
-                            <ul class="navbar-nav ms-auto col-lg-4" style="">
-                                <li class="nav-item col-md-12">
-                                    <input type="search" name="search" id="search" class="rounded-pill border-0 w-100" placeholder="Cari Judul Buku">
+                            <ul class="navbar-nav ms-auto col-lg-2">
+                                <li class="nav-item dropdown p-2">
+                                    <a class="nav-link dropdown-toggle fw-bold text-dark">Kategori</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a href="{{ url('') }}" class="dropdown-item">Romantis</a></li>
+                                        <li><a href="{{ url('') }}" class="dropdown-item">Komedi</a></li>
+                                        <li><a href="{{ url('') }}" class="dropdown-item">Komik</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item p-2">
+                                    <a href="{{ url('') }}" class="nav-link fw-bold text-dark">Rekomendasi</a>
+                                </li>
+                                <li class="nav-item p-2">
+                                    <a href="{{ url('') }}" class="nav-link fw-bold text-dark">Populer</a>
                                 </li>
                             </ul>
         
@@ -321,17 +329,21 @@ a.sidebar-link:hover {
                     </div>
                 </nav>
             </div>
-        @yield('card')
+            @yield('card')
+            @yield('data')
+            @yield('create')
+        </div>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
     <script>
         const hamBurger = document.querySelector(".toggle-btn");
 
-        hamBurger.addEventListener("click", function () {
-        document.querySelector("#sidebar").classList.toggle("expand");
-        });
+hamBurger.addEventListener("click", function () {
+  document.querySelector("#sidebar").classList.toggle("expand");
+});
     </script>
 </body>
 

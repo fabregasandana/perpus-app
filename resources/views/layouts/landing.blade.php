@@ -140,6 +140,11 @@
         font-family: 'Quicksand';
         border-top: 1px solid #299ebb;
     }
+
+    .wrap{
+        background-color: #eaeaea;
+        border-radius: 30px;
+    }
     </style>
 
 </head>
@@ -192,7 +197,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @auth
-                                        @if (Auth::user()->utype === 'ADM')
+                                        @if (Auth::user()->role === 'admin' || Auth::user()->role === 'petugas')
                                             <a class="dropdown-item" href="">Dashboard</a>
                                         @else
                                             <a class="dropdown-item" href="">Account</a>
@@ -219,6 +224,8 @@
     <main class="">
         @yield('content')
         @yield('content-1')
+        @yield('catalog')
+        @yield('detail')
     </main>
 
 </body>
