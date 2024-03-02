@@ -54,4 +54,7 @@ class User extends Authenticatable
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
 
+     public function ulasan(){
+        return $this->hasMany(Ulasan::class, 'userID', 'id');
+     }
 }

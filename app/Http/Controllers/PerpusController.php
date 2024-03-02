@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buku;
 use Illuminate\Http\Request;
 use App\Models\Perpus;
 use App\Models\Kategori;
+use App\Models\Koleksi;
+use App\Models\Ulasan;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -13,6 +17,11 @@ class PerpusController extends Controller
 {
     public function index(){
         return view ('user.homepage');
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 
     public function dashboard(){
@@ -115,7 +124,38 @@ class PerpusController extends Controller
     }
     //Detail
     public function detail($bukuID){
-        $buku = Perpus::find($bukuID);
-        return view('user.detailbuku', compact('buku'));
+        $buku = Buku::find($bukuID);
+        $ulasan = Ulasan::all();
+        return view('user.detailbuku', compact('buku', 'ulasan'));
+    }
+    //Input Komen
+    public function komen(Request $request, $bukuID){
+        $user = Auth::user()->id;
+        
+        $ulasan = new Ulasan([
+            'userID' => $user,
+            'bukuID' => $bukuID,
+            'ulasan' => $request['komen'],
+            'rating' => $request['rating'],
+        ]);
+
+        $ulasan->save();
+        return redirect()->route('detail', ['bukuID' => $bukuID]);
+    }
+
+    public function simpan($bukuID){
+        $buku = Perpus::all();
+        $user = Auth::user()->id;
+        if($user->koleksiPribadi()->where('bukuID', $bukuID)->exist())
+        {
+            $user->koleksi()->detech($bukuID);
+            return redirect()->route('detail', ['bukuID' => $bukuID]);
+        }
+        else
+        {
+            $user->koleksi()->attach($bukuID);
+            return redirect()->route('detail', ['bukuID' => $bukuID]);
+        }
     }
 }
+

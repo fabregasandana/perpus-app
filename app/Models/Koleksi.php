@@ -4,29 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
-class Ulasan extends Model
+class Koleksi extends Model
 {
     use HasFactory;
 
-    protected $table = 'ulasanbuku';
-
+    protected $table = 'koleksi';
     protected $fillable = [
         'userID',
         'bukuID',
-        'ulasan',
-        'rating'
     ];
 
     public function buku()
     {
-        return $this->belongsTo(Buku::class, 'bukuID', 'ulasanID');
+        return $this->belongsTo(Buku::class, 'bukuID', 'koleksiID');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'userID', 'id');
+        return $this->belongsTo(User::class, 'userID', 'koleksiID');
     }
 }

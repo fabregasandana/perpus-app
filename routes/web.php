@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 Route::get('/homepage', [App\Http\Controllers\PerpusController::class, 'katalog'])->name('homepage');
 Route::get('/buku/{bukuID}', [App\Http\Controllers\PerpusController::class, 'detail'])->name('detail');
+Route::post('/buku/{bukuID}/ulasan', [App\Http\Controllers\PerpusController::class, 'komen'])->name('komen');
+Route::post('/buku/addkoleksi', [App\Http\Controllers\PerpusController::class, 'simpan'])->name('simpan');
 Auth::routes();
 
 
