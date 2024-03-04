@@ -11,7 +11,7 @@
                     <form action="{{ route('prosesaddpetugas') }}" method="POST">
                         @csrf
                         <div class="col-md-10 form-group p-3">
-                            <label for="name">Name</label>
+                            <label for="name">Nama Lengkap</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Username">
 
                                 @error('name')
@@ -19,6 +19,19 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                        </div>
+
+                        <div class="row mb-3 justify-content-center">
+                            <label for="">Username</label>
+                            <div class="col-md-9">
+                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="Username">
+
+                                @error('username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
                         
                         <div class="col-md-10 form-group p-3">
@@ -41,6 +54,19 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                        </div>
+
+                        <div class="row mb-3 justify-content-center">
+
+                            <div class="col-md-9">
+                                <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" placeholder="Alamat">
+
+                                @error('alamat')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
                         
                         <div class="col-md-10 form-group p-3">

@@ -1,11 +1,11 @@
-@extends('layouts.landing')
+@extends('admin.dashboard')
 
 @section('catalog')
-    <div class="container-fluid ">
+    <div class="container-fluid mt-5">
         <div class="row gap-5">
             @foreach ($buku as $b)
             <div class="col-md-2 d-flex justify-content-center">
-                <div class="card col-md-11 d-flex align-items-center">
+                <div class="card col-md-12 d-flex align-items-center">
                     <div class="card-img text-center">
                         <img src="{{ asset('/images')}}/{{ $b->gambar }}" alt="" class="img-fluid">
                     </div>

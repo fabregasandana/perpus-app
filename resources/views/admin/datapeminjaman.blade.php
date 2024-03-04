@@ -10,12 +10,10 @@
             <div class="col-12">
                 <table class="table table-stripped">
                     <tr class="text-center">
-                        <th>Cover</th>
-                        <th>Judul</th>
-                        <th>Penulis</th>
-                        <th>Penerbit</th>
-                        <th>Tahun Terbit</th>
-                        <th>Action</th>
+                        <th>Nama</th>
+                        <th>Buku</th>
+                        <th>Tanggal Peminjaman</th>
+                        <th>Tanggal Pengembalian</th>
                     </tr>
                     @foreach ($buku as $b)
                     <tr class="text-center" style="vertical-align: middle;">

@@ -6,7 +6,7 @@
             <div class="col-md-6">
                 <div class="card border-0">
                     <div class="title text-center col-md-10">
-                        <h4>Input Data Petugas</h4>
+                        <h4>Masukkan Tanggal Pengembalian</h4>
                     </div>
                     <form action="/buku/proses/peminjaman/{{ $buku->bukuID }}" method="POST">
                         @csrf

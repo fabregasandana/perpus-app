@@ -58,6 +58,7 @@
             <p class="h3 fw-bold">Top Rating</p>
         </div>
         <div class="container-fluid d-flex flex-row justify-content-between align-items-center p-0 mt-3 gap-5 ">
+            
             <div class="card d-flex align-items-center border-0 more">
                 <div class="section overflow-hidden">
                     <img src="{{ asset('/images/banner-wmn.png') }}" alt="" class="img-fluid">

@@ -63,8 +63,7 @@ body {
     min-width: 70px;
     z-index: 1000;
     transition: all .25s ease-in-out;
-    background-color: #0e2238;
-    /* background: linear-gradient(180deg, rgba(193, 236, 245, .5), #C1ECF5); */
+    background: linear-gradient(45deg, rgba(193, 236, 245, .5), #C1ECF5);
     display: flex;
     flex-direction: column;
 }
@@ -84,7 +83,7 @@ body {
 
 .toggle-btn i {
     font-size: 1.5rem;
-    color: #FFF;
+    color: #000;
 }
 
 .sidebar-logo {
@@ -92,7 +91,7 @@ body {
 }
 
 .sidebar-logo a {
-    color: #FFF;
+    color: #000;
     font-size: 1.15rem;
     font-weight: 600;
 }
@@ -109,7 +108,7 @@ body {
 
 a.sidebar-link {
     padding: .625rem 1.625rem;
-    color: #FFF;
+    color: #000;
     display: block;
     font-size: 0.9rem;
     white-space: nowrap;
@@ -134,7 +133,7 @@ a.sidebar-link:hover {
     position: absolute;
     top: 0;
     left: 70px;
-    background-color: #0e2238;
+    background-image: linear-gradient(180deg, rgba(193, 236, 245, 1), #C1ECF5);
     padding: 0;
     min-width: 15rem;
     display: none;
@@ -192,7 +191,7 @@ a.sidebar-link:hover {
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
-                    <a href="#">dPerpus</a>
+                    <a href="/homepage">dPerpus</a>
                 </div>
             </div>
             <ul class="sidebar-nav">
@@ -202,62 +201,55 @@ a.sidebar-link:hover {
                         <span>Profile</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-book"></i>
-                        <span>Data Buku</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                        <i class="lni lni-protection"></i>
-                        <span>Auth</span>
-                    </a>
-                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Login</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Register</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                        <i class="lni lni-layout"></i>
-                        <span>Multi Level</span>
-                    </a>
-                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                Two Links
-                            </a>
-                            <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 1</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                @auth
+                    @if (Auth::user()->role === 'admin' || Auth::user()->role === 'petugas')
+                        
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">
+                            <i class="lni lni-book"></i>
+                            <span>Data Buku</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">
+                            <i class="lni lni-popup"></i>
+                            <span>Data Petugas</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">
+                            <i class="lni lni-cog"></i>
+                            <span>Data User</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">
+                            <i class="bi bi-journal-text"></i>
+                            <span>Laporan Peminjaman</span>
+                        </a>
+                    </li>
+                    @else
+                    
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-popup"></i>
-                        <span>Notification</span>
+                        <span>Daftar Pinjaman</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
-                        <i class="lni lni-cog"></i>
-                        <span>Setting</span>
+                        <i class="bi bi-box2-heart"></i>
+                        <span>Koleksi</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="bi bi-journal-text"></i>
+                        <span>Laporan Peminjaman</span>
+                    </a>
+                </li>
+                    @endif
+                @endauth
             </ul>
         </aside>
         <div class="main p-0 container-fluid">
@@ -270,7 +262,10 @@ a.sidebar-link:hover {
         
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <!-- Left Side Of Navbar -->
-                            <ul class="navbar-nav ms-auto col-lg-2">
+                            <ul class="navbar-nav ms-auto col-lg-4">
+                                @guest
+                                @auth
+                                @if (Auth::user()->role === 'user')
                                 <li class="nav-item dropdown p-2">
                                     <a class="nav-link dropdown-toggle fw-bold text-dark">Kategori</a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -285,8 +280,10 @@ a.sidebar-link:hover {
                                 <li class="nav-item p-2">
                                     <a href="{{ url('') }}" class="nav-link fw-bold text-dark">Populer</a>
                                 </li>
+                                @endif
+                                @endauth
+                                @endguest
                             </ul>
-        
                             <!-- Right Side Of Navbar -->
                             <ul class="navbar-nav ms-auto me-4 gap-4">
                                 <!-- Authentication Links -->
@@ -301,16 +298,15 @@ a.sidebar-link:hover {
                                 @else
                                     <li class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            {{ Auth::user()->name }}
+                                            {{ Auth::user()->username }}
                                         </a>
         
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                             @auth
-                                                @if (Auth::user()->utype === 'ADM')
+                                                @if (Auth::user()->role === 'admin' || Auth::user()->role === 'petugas')
                                                     <a class="dropdown-item" href="">Dashboard</a>
-                                                @else
-                                                    <a class="dropdown-item" href="">Account</a>
                                                 @endif
+                                                    <a class="dropdown-item" href="/profile/{{Auth::user()->id}}">Profile</a>
                                             @endauth
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                onclick="event.preventDefault();
@@ -332,6 +328,7 @@ a.sidebar-link:hover {
             @yield('card')
             @yield('data')
             @yield('create')
+            @yield('catalog')
         </div>
     </div>
     

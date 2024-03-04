@@ -25,14 +25,6 @@
         src: url('BalooBhaijaan-Regular.ttf');
     }
 
-    .dropdown:hover>.dropdown-menu {
-        display: block;
-    }
-
-    .dropdown>.dropdown-toggle:active {
-        pointer-events: none;
-    }
-
     .rounded-pill{
         background-color: black;
         width: 6rem;
@@ -53,7 +45,7 @@
         /* width: 120vw; */
         /* height: 100%; */
         position: relative;
-        top: -53rem;
+        top: -52.3rem;
         z-index: -1;
         width: 100%;
         /* height: 90vh; */
@@ -152,7 +144,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm z-1 border border-bottom" style="--bs-border-opacity: .5;">
             <div class="container-fluid">
-                <a class="navbar-brand d-flex align-items-center" href="{{ url('/index') }}">
+                <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <p class="h2 ps-1" style="font-family: 'Dela Gothic One'">dPerpus</p>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -161,7 +153,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto col-lg-2">
+                    <ul class="navbar-nav ms-auto col-lg-4">
                         <li class="nav-item dropdown p-2">
                             <a class="nav-link dropdown-toggle fw-bold text-dark">Kategori</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -192,17 +184,17 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->username }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @auth
                                         @if (Auth::user()->role === 'admin' || Auth::user()->role === 'petugas')
-                                            <a class="dropdown-item" href="">Dashboard</a>
+                                            <a class="dropdown-item" href="/dashboard">Dashboard</a>
                                         @else
-                                            <a class="dropdown-item" href="">Account</a>
+                                            <a class="dropdown-item" href="/profil/{{Auth::user()->id}}">Account</a>
                                         @endif
-                                    @endauth
+                                        @endauth
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -226,6 +218,7 @@
         @yield('content-1')
         @yield('catalog')
         @yield('detail')
+        @yield('create')
     </main>
 
 </body>

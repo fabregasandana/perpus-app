@@ -49,6 +49,12 @@
             background-color: transparent;
         }
 
+        .form-control:focus{
+            background-color: transparent;
+            outline-color: #000;
+
+        }
+
         .a-2::after{
             content: "";
             width: 85px;

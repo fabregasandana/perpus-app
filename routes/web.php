@@ -25,6 +25,9 @@ Route::post('/buku/{bukuID}/ulasan', [App\Http\Controllers\PerpusController::cla
 Route::post('/addkoleksi/{bukuID}', [App\Http\Controllers\PerpusController::class, 'store'])->name('simpan');
 Route::post('/buku/proses/peminjaman/{bukuID}', [App\Http\Controllers\PerpusController::class, 'pinjam'])->name('pinjam');
 Route::get('/buku/peminjaman/{bukuID}', [App\Http\Controllers\PerpusController::class, 'showpinjam'])->name('showpinjam');
+Route::get('/profile/{id}', [App\Http\Controllers\PerpusController::class, 'profile'])->name('profile');
+Route::get('/profile/edit/{id}', [App\Http\Controllers\PerpusController::class, 'editprofile'])->name('editprofile');
+Route::put('/profile/edit/proses/{id}', [App\Http\Controllers\PerpusController::class, 'prosesedit'])->name('prosesedit');
 Auth::routes();
 
 

@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Hash;
 class PerpusController extends Controller
 {
     public function index(){
-        return view ('user.homepage');
+        $buku = Buku::all();
+        return view ('user.homepage', compact('buku'));
     }
 
     public function __construct()
@@ -234,6 +235,31 @@ class PerpusController extends Controller
         $buku->kategori()->attach($kategoriId, ['kategoriID' => $kategoriId]);
 
         return redirect('/dashboard');
+    }
+
+    public function profile($id)
+    {   
+        $user = Auth::user()->id;
+        return view('user.profile', compact('user'));
+    }
+
+    public function editprofile($id)
+    {   
+        $user = Auth::user()->id;
+        return view('user.editprofile', compact('user'));
+    }
+
+    public function prosesedit(Request $request)
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id)->update([
+            'name' => $request['name'],
+            'username' => $request['username'],
+            'email' => $request['email'],
+            'alamat' => $request['alamat'],
+        ]);
+
+        return redirect('/profile/{id}');
     }
 }
 
