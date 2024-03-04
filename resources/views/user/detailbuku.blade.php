@@ -29,6 +29,13 @@
                     <p>{{ $u->ulasan }}</p>
                 </div>
             @endforeach
+            <form action="/addkoleksi/{{$buku->bukuID}}" method="post"  >
+                @csrf
+                <button type="submit" class="btn">
+                    <i class="bi bi-box2-heart-fill"></i>
+                </button>
+
+            </form>
         </div>
     </div>
 @endsection

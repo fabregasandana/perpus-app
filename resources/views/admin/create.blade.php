@@ -8,7 +8,7 @@
                     <div class="title text-center col-md-10">
                         <h4>Input Data Buku</h4>
                     </div>
-                    <form action="/prosesaddbuku" method="post">
+                    <form action="/prosesaddbuku" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-10 form-group p-3">
                             <label for="judul">Judul</label>
@@ -28,19 +28,6 @@
                         <div class="col-md-10 form-group p-3">
                             <label for="tahunterbit">Tahun Terbit</label>
                             <input type="text" value="" name="thn" class="form-control">
-                        </div>
-
-                        <div class="col-md-10 form-group p-3">
-                            <label for="kategori">Tahun Terbit</label>
-                            <select name="kategori" id="" class="form-select" aria-label="Deafult select example">
-                                <option selected>-- Pilih Kategori --</option>
-                                <option value="komedi" name="">Komedi</option>
-                                <option value="romantis" name="">Romantis</option>
-                                <option value="pendidikan" name="">Pendidikan</option>
-                                <option value="cerpen" name="">Cerpen</option>
-                                <option value="novel" name="">Novel</option>
-                                <option value="majalah" name="">Majalah</option>
-                            </select>
                         </div>
 
                         <div class="col-md-10 form-group p-3">

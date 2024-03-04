@@ -15,7 +15,7 @@
                         {{-- <p class="card-title">{{ $b->rating }}</p> --}}
                     </div>
                     <div class="card-body d-flex flex-row gap-5 justify-content-md-center">
-                        <a href="" role="button" class="btn btn-success col-md-6">Borrow</a>
+                        <a href="/buku/peminjaman/{{ $b->bukuID }}" role="button" class="btn btn-success col-md-6">Borrow</a>
                         <a href="/buku/{{ $b->bukuID }}" role="button" class="btn btn-outline-primary col-md-6">Detail</a>
                     </div>
                 </div>

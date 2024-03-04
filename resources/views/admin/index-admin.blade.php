@@ -1,7 +1,7 @@
 @extends('admin.dashboard')
 
 @section('card')
-    <div class="row justify-content-center mt-5 bg-primary">
+    <div class="row justify-content-center mt-5">
         <div class="col-md-3">
             <div class="card col-md-10 bg-primary text-light">
                 <div class="row align-items-center">

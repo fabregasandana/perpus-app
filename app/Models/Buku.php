@@ -20,6 +20,16 @@ class Buku extends Model
 
     public function koleksi()
     {
-        return $this->hasMany(Koleksi::class, 'user_id', 'buku_id');
+        return $this->belongsToMany(Koleksi::class, 'user_id', 'bukuID');
+    }
+
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'user_id', 'bukuID');
+    }
+
+    public function kategori()
+    {
+        return $this->belongsToMany(Kategori::class, 'kategorirelasi', 'bukuID');
     }
 }

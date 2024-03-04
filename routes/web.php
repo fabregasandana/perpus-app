@@ -22,7 +22,9 @@ Route::get('/', function () {
 Route::get('/homepage', [App\Http\Controllers\PerpusController::class, 'katalog'])->name('homepage');
 Route::get('/buku/{bukuID}', [App\Http\Controllers\PerpusController::class, 'detail'])->name('detail');
 Route::post('/buku/{bukuID}/ulasan', [App\Http\Controllers\PerpusController::class, 'komen'])->name('komen');
-Route::post('/buku/addkoleksi', [App\Http\Controllers\PerpusController::class, 'simpan'])->name('simpan');
+Route::post('/addkoleksi/{bukuID}', [App\Http\Controllers\PerpusController::class, 'store'])->name('simpan');
+Route::post('/buku/proses/peminjaman/{bukuID}', [App\Http\Controllers\PerpusController::class, 'pinjam'])->name('pinjam');
+Route::get('/buku/peminjaman/{bukuID}', [App\Http\Controllers\PerpusController::class, 'showpinjam'])->name('showpinjam');
 Auth::routes();
 
 
@@ -54,4 +56,16 @@ Route::middleware('auth', 'auth.admin')->group(function(){
     Route::get('/addpetugas', [App\Http\Controllers\PerpusController::class, 'formPetugas'])->name('addpetugas');
     Route::post('/prosesaddpetugas', [App\Http\Controllers\PerpusController::class, 'create'])->name('prosesaddpetugas');
     Route::get('/datapetugas', [App\Http\Controllers\PerpusController::class, 'datapetugas'])->name('datapetugas');
+
+    //tampil form create kategori
+    Route::get('/createkategori', [App\Http\Controllers\PerpusController::class, 'createkategori'])->name('createkategori');
+
+    //proses create kategori
+    Route::post('/prosesaddkategori', [App\Http\Controllers\PerpusController::class, 'addkategori'])->name('prosesaddkategori');
+    
+    //relasikategori
+    Route::get('/addrelasikategori', [App\Http\Controllers\PerpusController::class, 'kategori'])->name('addrelasi');
+    
+    //proses relasi
+    Route::post('/prosesrelasi', [App\Http\Controllers\PerpusController::class, 'addrelasi'])->name('prosesrelasi');
 });

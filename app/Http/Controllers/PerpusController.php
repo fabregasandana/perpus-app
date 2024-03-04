@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Perpus;
 use App\Models\Kategori;
 use App\Models\Koleksi;
+use App\Models\Peminjaman;
 use App\Models\Ulasan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -39,15 +40,20 @@ class PerpusController extends Controller
     }
 
     public function insertData(Request $request){
-        $kategori = new Kategori;
-        $kategori->namakategori = $request->input('kategori');
+        $request->validate([
+            'gambar' => 'required|file|image|mimes:jpg, jpeg, gif|max:2048',
+        ]);
+        $file = $request->file('gambar');
+        $file->move(base_path('\public\images'), $file->getClientOriginalName());
+        // $destinationPath = 'C:\xampp\htdocs\ukk-app\public\images';
+        
         $buku = new Perpus;
         $buku->judul = $request->input('judul');
         $buku->penulis = $request->input('penulis');
         $buku->penerbit = $request->input('penerbit');
         $buku->tahunterbit = $request->input('thn');
         $buku->deskripsi = $request->input('deskripsi');
-        $buku->gambar = $request->input('gambar');
+        $buku->gambar = $file->getClientOriginalName();
 
         $buku->save();
 
@@ -143,19 +149,91 @@ class PerpusController extends Controller
         return redirect()->route('detail', ['bukuID' => $bukuID]);
     }
 
-    public function simpan($bukuID){
-        $buku = Perpus::all();
+    //proses add koleksi
+    public function store($bukuID){
+        $book = Buku::find($bukuID);
+        
+        $user = auth()->user();
+
+        $existingBookmark = Koleksi::where('bukuID', $book->bukuID)
+            ->where('userID', $user->id)
+            ->first();
+
+        if ($existingBookmark) {
+            $existingBookmark->delete();
+            return back();
+        } else {
+            $bookmark = new Koleksi();
+            $bookmark->bukuID = $book->bukuID;
+            $bookmark->userID = $user->id;
+            $bookmark->save();
+
+            return redirect()->back()->with('success', 'Buku Berhasil Ditambahkan');
+        }
+    }
+    
+    //menampilkan form tgl pengembalian
+    public function showpinjam($bukuID){
+        $buku = Buku::find($bukuID);
+        return view('user.pengembalian', compact('buku'));
+    }
+
+    //proses penginputan data peminjaman
+    public function pinjam(Request $request, $bukuID){
         $user = Auth::user()->id;
-        if($user->koleksiPribadi()->where('bukuID', $bukuID)->exist())
-        {
-            $user->koleksi()->detech($bukuID);
-            return redirect()->route('detail', ['bukuID' => $bukuID]);
-        }
-        else
-        {
-            $user->koleksi()->attach($bukuID);
-            return redirect()->route('detail', ['bukuID' => $bukuID]);
-        }
+
+        $pinjam = new Peminjaman([
+            'userID' => $user,
+            'bukuID' => $bukuID,
+            'tanggalpeminjaman' => now()->toDateString(),
+            'tanggalpengembalian' => $request['tglbalik'],
+            'status' => 'Dipinjam',
+        ]);
+
+        $pinjam->save();
+        return redirect()->route('homepage', ['bukuID' => $bukuID]);
+    }
+
+    //menampilkan data peminjaman
+    // public function datapinjam(){
+    //     $user = Auth::user();
+    //     $book = Book::all();
+    //     $daftar = $user->peminjamans()->where('status', 'Dipinjam')->get();
+
+    //     return view('bubuku.datapeminjaman', compact('daftar'));
+    // }
+
+    //tampilan tambah kategori
+    public function createkategori(){
+        return view('admin.createkategori');
+    }
+
+    //proses tambah kategori
+    public function addkategori(Request $request){
+        $kategori = new Kategori([
+            'namakategori' => $request['namakategori'],
+        ]);
+
+        $kategori->save();
+        return redirect('/dashboard');
+    }
+
+    //tampil form kategori relasi
+    public function kategori(){
+        $buku = Buku::all();
+        $kategori = Kategori::all();
+        return view('admin.addkategori', compact('buku', 'kategori'));
+    }
+
+    //proses relasi
+    public function addrelasi(Request $request){
+        $bukuId = $request->input('buku');  
+        $kategoriId = $request->input('kategori');
+        
+        $buku = Buku::find($bukuId);
+        $buku->kategori()->attach($kategoriId, ['kategoriID' => $kategoriId]);
+
+        return redirect('/dashboard');
     }
 }
 
