@@ -51,14 +51,19 @@ Route::middleware('auth', 'auth.admin')->group(function(){
 
     //delete data buku
     Route::delete('/delete/{bukuID}', [App\Http\Controllers\PerpusController::class, 'deleteData'])->name('deletedata');
-
+    
     //tampil data user
     Route::get('/datauser', [App\Http\Controllers\PerpusController::class, 'dataUser'])->name('datauser');
+    Route::get('/delete/user/{id}', [App\Http\Controllers\PerpusController::class, 'deleteuser'])->name('deleteuser');
 
+    
     //add data petugas
     Route::get('/addpetugas', [App\Http\Controllers\PerpusController::class, 'formPetugas'])->name('addpetugas');
     Route::post('/prosesaddpetugas', [App\Http\Controllers\PerpusController::class, 'create'])->name('prosesaddpetugas');
     Route::get('/datapetugas', [App\Http\Controllers\PerpusController::class, 'datapetugas'])->name('datapetugas');
+    Route::get('/editpetugas/{id}', [App\Http\Controllers\PerpusController::class, 'editpetugas'])->name('editpetugas');
+    Route::put('/editpetugas/proses/{id}', [App\Http\Controllers\PerpusController::class, 'editptgs'])->name('editptgs');
+    Route::delete('/delete/petugas/{id}', [App\Http\Controllers\PerpusController::class, 'deletepetugas'])->name('deletedata');
 
     //tampil form create kategori
     Route::get('/createkategori', [App\Http\Controllers\PerpusController::class, 'createkategori'])->name('createkategori');
@@ -71,4 +76,7 @@ Route::middleware('auth', 'auth.admin')->group(function(){
     
     //proses relasi
     Route::post('/prosesrelasi', [App\Http\Controllers\PerpusController::class, 'addrelasi'])->name('prosesrelasi');
+
+    Route::get('/laporanpeminjam', [App\Http\Controllers\PerpusController::class, 'showlaporan'])->name('laporan');
+    Route::get('/cetaklaporan', [App\Http\Controllers\PerpusController::class, 'cetaklaporan'])->name('cetaklaporan');
 });

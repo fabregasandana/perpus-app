@@ -21,17 +21,15 @@
                                 @enderror
                         </div>
 
-                        <div class="row mb-3 justify-content-center">
+                        <div class="col-md-10 form-group p-3">
                             <label for="">Username</label>
-                            <div class="col-md-9">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="Username">
+                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="Username">
 
-                                @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            @error('username')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         
                         <div class="col-md-10 form-group p-3">
@@ -46,6 +44,17 @@
                         </div>
                         
                         <div class="col-md-10 form-group p-3">
+                            <label for="alamat">Alamat</label>
+                            <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" placeholder="Alamat">
+
+                            @error('alamat')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        
+                        <div class="col-md-10 form-group p-3">
                             <label for="password">Password</label>
                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
 
@@ -56,18 +65,6 @@
                                 @enderror
                         </div>
 
-                        <div class="row mb-3 justify-content-center">
-
-                            <div class="col-md-9">
-                                <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" placeholder="Alamat">
-
-                                @error('alamat')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
                         
                         <div class="col-md-10 form-group p-3">
                             <label for="confirmpassword">Konfirmasi Password</label>

@@ -3,8 +3,8 @@
 @section('data')
     <div class="container-fluid p-0">
         <div class="container-fluid d-flex justify-content-between p-4 align-items-center">
-            <h3 class="text-dark fw-bold">Data Buku</h3>
-            <a href="{{ route('tambahbuku') }}" class="btn" style="background-color: #99DCED;"><i class="bi bi-plus-lg text-dark fs-4"></i></a>
+            <h3 class="text-dark fw-bold">Data Peminjaman</h3>
+            <button id="cetak" style="background-color: #99DCED;">Cetak Data</button>
         </div>
         <div class="row">
             <div class="col-12">
@@ -15,25 +15,15 @@
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Pengembalian</th>
                     </tr>
-                    @foreach ($buku as $b)
+                    @foreach ($dtpeminjam as $p)
                     <tr class="text-center" style="vertical-align: middle;">
-                        <td>
-                            <img src="{{ asset('images') }}/{{ $b->gambar }}" alt="" class="img-fluid" style="width: 85px;">
-                        </td>
-                        <td>{{ $b->judul }}</td>
-                        <td>{{ $b->penulis }}</td>
-                        <td>{{ $b->penerbit }}</td>
-                        <td>{{ $b->tahunterbit }}</td>
+                        <td>{{ $p->user['name'] }}</td>
+                        <td>{{ $p->buku['judul'] }}</td>
+                        <td>{{ $p->tanggalpeminjaman }}</td>
+                        <td>{{ $p->tanggalpengembalian }}</td>
                         <td>
                             <div class="d-flex flex-row justify-content-center">
-                                <a href="/editbuku/{{ $b->bukuID }}"><i class="bi bi-pencil text-dark"></i></a>
-                                <form action="/delete/{{ $b->bukuID }}" method="post" class="delete-form">
-                                    @csrf
-                                    @method("DELETE")
-                                    <button type="submit" class="bg-transparent border-0">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
+                                <a href="/editlaporan/{{ $p->buku['bukuID'] }}"><i class="bi bi-pencil text-dark"></i></a>
                             </div>
                         </td>
                     </tr>

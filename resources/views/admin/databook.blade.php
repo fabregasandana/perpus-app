@@ -3,6 +3,7 @@
 @section('data')
     <div class="container-fluid p-0">
         <div class="container-fluid d-flex justify-content-between p-4 align-items-center">
+            <a href="/dashboard"><i class="bi bi-arrow-left"></i>Back</a>
             <h3 class="text-dark fw-bold">Data Buku</h3>
             <a href="{{ route('tambahbuku') }}" class="btn" style="background-color: #99DCED;"><i class="bi bi-plus-lg text-dark fs-4"></i></a>
         </div>

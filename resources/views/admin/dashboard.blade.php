@@ -205,25 +205,25 @@ a.sidebar-link:hover {
                     @if (Auth::user()->role === 'admin' || Auth::user()->role === 'petugas')
                         
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
+                        <a href="/databuku" class="sidebar-link">
                             <i class="lni lni-book"></i>
                             <span>Data Buku</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
+                        <a href="/datapetugas" class="sidebar-link">
                             <i class="lni lni-popup"></i>
                             <span>Data Petugas</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
+                        <a href="/datauser" class="sidebar-link">
                             <i class="lni lni-cog"></i>
                             <span>Data User</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
+                        <a href="/laporanpeminjam" class="sidebar-link">
                             <i class="bi bi-journal-text"></i>
                             <span>Laporan Peminjaman</span>
                         </a>
@@ -304,7 +304,7 @@ a.sidebar-link:hover {
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                             @auth
                                                 @if (Auth::user()->role === 'admin' || Auth::user()->role === 'petugas')
-                                                    <a class="dropdown-item" href="">Dashboard</a>
+                                                    <a class="dropdown-item" href="/dashboard">Dashboard</a>
                                                 @endif
                                                     <a class="dropdown-item" href="/profile/{{Auth::user()->id}}">Profile</a>
                                             @endauth
@@ -341,7 +341,22 @@ a.sidebar-link:hover {
 hamBurger.addEventListener("click", function () {
   document.querySelector("#sidebar").classList.toggle("expand");
 });
-    </script>
+
+document.getElementById('cetak').addEventListener('click', function () {
+            // Panggil fungsi untuk cetak dan pindah halaman
+            cetakDanPindahHalaman();
+            cetakHalaman();
+        });
+
+        function cetakDanPindahHalaman() {
+            // Lakukan pengalihan halaman
+            window.location.href = '/cetaklaporan';
+            // Setelah pengalihan, lakukan pencetakan
+        }
+        function cetakHalaman(){
+            window.print();
+        }
+</script>
 </body>
 
 </html>

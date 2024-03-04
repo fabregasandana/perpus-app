@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
-class PerpusController extends Controller
+    class PerpusController extends Controller
 {
     public function index(){
         $buku = Buku::all();
@@ -87,19 +87,19 @@ class PerpusController extends Controller
         $buku->delete();
         return redirect('/databuku');
     }
-
+    
     //menampilkan data user
     public function dataUser(){
         $user = User::where('role', 'user')->get();
         return view('admin.datauser', compact('user'));
     }
-
+    
     //menampilkan data petugas
     public function dataPetugas(){
         $petugas = User::where('role', 'petugas')->get();
         return view('admin.datapetugas', compact('petugas'));
     }
-
+    
     public function formPetugas(){
         return view('admin.addpetugas');
     }
@@ -114,19 +114,52 @@ class PerpusController extends Controller
     {
         $petugas =  new User([
             'name' => $request['name'],
+            'username' => $request['username'],
+            'alamat' => $request['alamat'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
             'role' => $request['role'],
         ]);
 
         $petugas->save();
-
-        return view('admin.datapetugas');
+        
+        return redirect('/datapetugas');
+    }
+    
+    //formedit
+    public function editpetugas($id)
+    {   
+        $petugas = User::find($id);
+        return view('admin.editpetugas', compact('petugas'));
+    }
+    
+    //edit petugas
+    public function editptgs(Request $request, $id)
+    {
+        $petugas = User::find($id)->update([
+            'name' => $request['name'],
+            'username' => $request['username'],
+            'email' => $request['email'],
+            'alamat' => $request['alamat'],
+        ]);
+        
+        return redirect('/datapetugas');
     }
 
+    public function deletepetugas($id){
+        $petugas = User::find($id);
+        $petugas->delete();
+        return redirect('/datapetugas');
+    }
+
+    public function deleteuser($id){
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/datauser');
+    }
     //Katalog
     public function katalog(){
-        $buku = Perpus::all();
+        $buku = Buku::all();
         return view('user.catalog', compact('buku'));
     }
     //Detail
@@ -260,6 +293,22 @@ class PerpusController extends Controller
         ]);
 
         return redirect('/profile/{id}');
+    }
+
+    public function showlaporan(){
+        $buku = Buku::all();
+        $user = User::all();
+        $dtpeminjam = Peminjaman::all();
+
+        return view('admin.datapeminjaman', compact('dtpeminjam', 'buku', 'user'));
+    }
+
+    public function cetaklaporan(){
+        $buku = Buku::all();
+        $user = User::all();
+        $dtpeminjam = Peminjaman::all();
+
+        return view('admin.cetakdata', compact('dtpeminjam', 'buku', 'user'));
     }
 }
 

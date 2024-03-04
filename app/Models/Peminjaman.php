@@ -20,11 +20,11 @@ class Peminjaman extends Model
 
     public function buku()
     {
-        return $this->belongsTo(Buku::class, 'bukuID', 'peminjamanID');
+        return $this->belongsTo(Buku::class, 'bukuID', 'bukuID');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'userID', 'peminjamanID');
+        return $this->belongsTo(User::class, 'userID', 'id');
     }
 }
