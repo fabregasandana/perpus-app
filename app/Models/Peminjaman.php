@@ -10,6 +10,7 @@ class Peminjaman extends Model
     use HasFactory;
 
     protected $table = 'peminjaman';
+    protected $primaryKey = 'peminjamanID';
     protected $fillable = [
         'userID',
         'bukuID',
@@ -25,6 +26,6 @@ class Peminjaman extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'userID', 'id');
+        return $this->belongsTo(User::class, 'userID');
     }
 }

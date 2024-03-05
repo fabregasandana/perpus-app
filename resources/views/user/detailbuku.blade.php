@@ -3,25 +3,28 @@
 @section('detail')
     <div class="container">
         <div class="wrap p-5 mt-5">
-            <div class="header d-flex align-items-center gap-3">
-                <div class="img col-md-3 text-center">
+            <div class="header d-flex align-items-center ">
+                <div class="img col-md-4 text-center">
                     <img src="{{ asset('images') }}/{{ $buku->gambar }}" alt="" class="img-fluid">
                 </div>
-                <div class="judul col-lg-6" style="line-height: .3; border-bottom: 1px solid black">
-                    <div class="detail-book">
-                        <h1 class="fw-bold">{{ $buku->judul }}</h1>
-                        <p class="">{{ $buku->penulis }}</p>
-                        <p class="">{{ $buku->penerbit }}</p>
-                        {{-- <p class="">{{ $ulasan->ulasan }}</p> --}}
-                    </div>
-                    <div class="btn-borrow justify-content-start d-flex">
-                        <a href="/buku/peminjaman/{{ $buku->bukuID }}" role="button" class="btn btn-success col-md-2">Borrow</a>
-                        <form action="/addkoleksi/{{$buku->bukuID}}" method="post"  >
-                            @csrf
-                            <button type="submit" class="btn">
-                                <i class="bi bi-box2-heart-fill" style=""></i>
-                            </button>
-                        </form>
+                <div class="detail-book col-lg-12 ms-5">
+                    <div class="judul col-lg-6" style="line-height: .3; border-bottom: 1px solid black">
+                        <div class="detail-book">
+                            <h1 class="fw-bold">{{ $buku->judul }}</h1>
+                            <p class="">{{ $buku->penulis }}</p>
+                            <p class="">{{ $buku->penerbit }}</p>
+                            <p class="">{{ $uu->rating ?? '' }}/5</p>
+                            <p class="">{{ $buku->stok }}</p>
+                        </div>
+                        <div class="btn-borrow justify-content-start d-flex">
+                            <a href="/buku/peminjaman/{{ $buku->bukuID }}" role="button" class="btn btn-success col-md-2">Borrow</a>
+                            <form action="/addkoleksi/{{$buku->bukuID}}" method="post" >
+                                @csrf
+                                <button type="submit" class="btn">
+                                    <i class="bi bi-box2-heart-fill" style="font-size: 25px"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -58,8 +61,8 @@
             </div>
             @foreach ($ulasan as $u)
             <div class="resultcomment mt-5 border-top">
-                    <h3>{{ $u->user['name'] }}</h3>
-                    <p>{{ $u->rating }}/5</p>
+                    <h4>{{ $u->user['username'] }}</h3>
+                    <p>Rate: {{ $u->rating }}/5</p>
                     <p>{{ $u->ulasan }}</p>
                 </div>
             @endforeach

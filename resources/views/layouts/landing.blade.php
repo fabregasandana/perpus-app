@@ -45,7 +45,7 @@
         /* width: 120vw; */
         /* height: 100%; */
         position: relative;
-        top: -52.3rem;
+        top: -50rem;
         z-index: -1;
         width: 100%;
         /* height: 90vh; */
@@ -154,19 +154,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav ms-auto col-lg-2">
-                        <li class="nav-item dropdown p-2">
-                            <a class="nav-link dropdown-toggle fw-bold text-dark">Kategori</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a href="{{ url('') }}" class="dropdown-item">Romantis</a></li>
-                                <li><a href="{{ url('') }}" class="dropdown-item">Komedi</a></li>
-                                <li><a href="{{ url('') }}" class="dropdown-item">Komik</a></li>
-                            </ul>
+                        
+                        <li class="nav-item p-2">
+                            <a href="" class="nav-link fw-bold text-dark">Rekomendasi</a>
                         </li>
                         <li class="nav-item p-2">
-                            <a href="{{ url('') }}" class="nav-link fw-bold text-dark">Rekomendasi</a>
-                        </li>
-                        <li class="nav-item p-2">
-                            <a href="{{ url('') }}" class="nav-link fw-bold text-dark">Populer</a>
+                            <a href="" class="nav-link fw-bold text-dark">Populer</a>
                         </li>
                     </ul>
 

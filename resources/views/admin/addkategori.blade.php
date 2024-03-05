@@ -12,8 +12,8 @@
                     @csrf
                     <div class="col-md-10 form-group p-3">
                         <label for="buku">Buku</label>
-                        <select name="buku" id="" class="form-select" aria-label="Deafult select example">
-                            <option selected>-- Pilih Kategori --</option>
+                        <select name="bukuID" id="" class="form-select" aria-label="Deafult select example">
+                            <option selected>-- Pilih Buku --</option>
                             @foreach ($buku as $b)
                             <option value="{{ $b->bukuID }}" name="">{{ $b->judul }}</option>
                             @endforeach
@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="col-md-10 form-group p-3">
-                        <label for="kategori">Tahun Terbit</label>
+                        <label for="kategori">Kategori</label>
                         <select name="kategoriID" id="" class="form-select" aria-label="Deafult select example">
                             <option selected>-- Pilih Kategori --</option>
                             @foreach ($kategori as $k)

@@ -17,22 +17,9 @@ use Illuminate\Support\Facades\Hash;
     class PerpusController extends Controller
 {
     public function index(){
+        $kategori = Kategori::take(5)->get();
         $buku = Buku::all();
-        return view ('user.homepage', compact('buku'));
-    }
-
-    //Detail
-    public function detail($bukuID){
-        $buku = Buku::find($bukuID);
-        $u = $buku->ulasan;
-        $ulasan = Ulasan::all();
-        return view('user.detailbuku', compact('buku', 'ulasan'));
-    }
-
-    //Katalog
-    public function katalog(){
-        $buku = Buku::all();
-        return view('user.catalog', compact('buku'));
+        return view ('user.homepage', compact('buku', 'kategori'));
     }
 
     public function __construct()
@@ -41,7 +28,11 @@ use Illuminate\Support\Facades\Hash;
     }
 
     public function dashboard(){
-        return view ('admin.index-admin');
+        $kategori_nav = Kategori::all()->take(5);
+        $buku = Buku::all()->count();
+        $petugas = User::all()->count();
+        $user = User::all()->count();
+        return view ('admin.index-admin', compact('buku', 'petugas', 'user', 'kategori_nav'));
     }
 
     public function dataBook(){
@@ -171,7 +162,22 @@ use Illuminate\Support\Facades\Hash;
         $user->delete();
         return redirect('/datauser');
     }
-    
+
+    //Katalog
+    public function katalog(){
+    $kategori_nav = Kategori::all()->take(5);
+        $buku = Buku::all();
+        return view('user.catalog', compact('buku', 'kategori_nav'));
+    }
+
+    //Detail
+    public function detail($bukuID){
+        $buku = Buku::find($bukuID);
+        $u = $buku->ulasan()->get();
+        $uu = $u->first();
+        $ulasan = Ulasan::where('bukuID', $bukuID);
+        return view('user.detailbuku', compact('buku','u', 'uu', 'ulasan'));
+    }
     
     //Input Komen
     public function komen(Request $request, $bukuID){
@@ -210,6 +216,15 @@ use Illuminate\Support\Facades\Hash;
             return redirect()->back()->with('success', 'Buku Berhasil Ditambahkan');
         }
     }
+
+    public function showkoleksi(){
+    $kategori_nav = Kategori::all()->take(5);
+        $user = Auth::user();
+        $buku = Buku::all();
+        $koleksi = $user->koleksi()->get();
+
+        return view('user.koleksi', compact('user', 'buku', 'koleksi', 'kategori_nav'));
+    }
     
     //menampilkan form tgl pengembalian
     public function showpinjam($bukuID){
@@ -220,27 +235,62 @@ use Illuminate\Support\Facades\Hash;
     //proses penginputan data peminjaman
     public function pinjam(Request $request, $bukuID){
         $user = Auth::user()->id;
+        $buku = Buku::find($bukuID);
 
-        $pinjam = new Peminjaman([
-            'userID' => $user,
-            'bukuID' => $bukuID,
-            'tanggalpeminjaman' => now()->toDateString(),
-            'tanggalpengembalian' => $request['tglbalik'],
-            'status' => 'Dipinjam',
-        ]);
+        if($buku->stok > 0){
+            $buku->stok--;
+            $buku->save();
+            
+            $pinjam = new Peminjaman([
+                'userID' => $user,
+                'bukuID' => $bukuID,
+                'tanggalpeminjaman' => now()->toDateString(),
+                'tanggalpengembalian' => $request['tglbalik'],
+                'status' => 'Dipinjam',
+            ]);
+            $pinjam->save();
+            return redirect()->route('homepage', ['bukuID' => $bukuID])->with('success', 'Buku berhasil dipinjam');
+        }
+        else{
+            return redirect()->back()->with('error', 'Maaf stok buku habis');
+        }
+            
+    }
 
-        $pinjam->save();
-        return redirect()->route('homepage', ['bukuID' => $bukuID]);
+    //proses pengembalian buku
+    public function ubahstatus(Request $request, $peminjamanID){
+        $status = Peminjaman::find($peminjamanID);
+        return view('admin.kembalibuku', compact('status'));
+    }
+
+    public function prosespengembalian(Request $request, $peminjamanID){
+        $pengembalian = Peminjaman::find($peminjamanID);
+        $status = $request['status'];
+        if($pengembalian && $status === 'Dikembalikan'){
+            $buku = Buku::find($pengembalian->bukuID);
+            $buku->stok++;
+            $buku->save();
+        }
+        $pengembalian->status = $status;
+        $pengembalian->save();
+
+        return redirect('/laporanpeminjam');
     }
 
     //menampilkan data peminjaman
-    // public function datapinjam(){
-    //     $user = Auth::user();
-    //     $book = Book::all();
-    //     $daftar = $user->peminjamans()->where('status', 'Dipinjam')->get();
+    public function datapinjam(){
+    $kategori_nav = Kategori::all()->take(5);
+        $user = Auth::user();
+        $book = Buku::all();
+        $daftar = $user->peminjaman()->where('status', 'Dipinjam')->get();
 
-    //     return view('bubuku.datapeminjaman', compact('daftar'));
-    // }
+        return view('user.peminjaman', compact('user', 'book', 'daftar', 'kategori_nav'));
+    }
+
+    public function showkategori(){
+        $kategori = Kategori::all();
+        return view('admin.kategori', compact('kategori'));
+    }
 
     //tampilan tambah kategori
     public function createkategori(){
@@ -254,7 +304,7 @@ use Illuminate\Support\Facades\Hash;
         ]);
 
         $kategori->save();
-        return redirect('/dashboard');
+        return redirect('/kategori');
     }
 
     //tampil form kategori relasi
@@ -266,19 +316,18 @@ use Illuminate\Support\Facades\Hash;
 
     //proses relasi
     public function addrelasi(Request $request){
-        $bukuId = $request->input('buku');  
-        $kategoriId = $request->input('kategori');
-        
-        $buku = Buku::find($bukuId);
-        $buku->kategori()->attach($kategoriId, ['kategoriID' => $kategoriId]);
+        $buku = Buku::find($request->input('bukuID'));
+        $kategori = Kategori::find($request->input('kategoriID'));
+        $buku->kategori()->attach($kategori);
 
         return redirect('/dashboard');
     }
 
     public function profile($id)
     {   
+    $kategori_nav = Kategori::all()->take(5);
         $user = Auth::user()->id;
-        return view('user.profile', compact('user'));
+        return view('user.profile', compact('user', 'kategori_nav'));
     }
 
     public function editprofile($id)
@@ -314,6 +363,13 @@ use Illuminate\Support\Facades\Hash;
         $dtpeminjam = Peminjaman::all();
 
         return view('admin.cetakdata', compact('dtpeminjam', 'buku', 'user'));
+    }
+
+    public function viewkategori($kategoriID){
+        $kategori = Kategori::find($kategoriID);
+        $buku = $kategori->buku;
+        // $buku = Buku::with('kategori')->get();
+        return view('user.kategoriview', compact('kategori', 'buku'));
     }
 }
 

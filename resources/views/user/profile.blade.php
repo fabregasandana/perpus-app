@@ -2,8 +2,9 @@
 
 @section('card')
     <div class="container-fluid">
-        <h1 class="mt-5">Hallo, {{Auth::user()->name}} </h1>
-        <div class="row align-items-center justify-content-center" style="height: 90vh;">
+        <a href="/dashboard"><i class="bi bi-arrow-left"></i>Back</a>
+        <div class="row align-items-center justify-content-center" style="height: 70vh;">
+            <h1 class="">Hallo, {{Auth::user()->name}} </h1>
             <div class="col-lg-4    ">
                 <div class="card">
                     <div class="card-body">

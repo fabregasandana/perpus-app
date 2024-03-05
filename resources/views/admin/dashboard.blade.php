@@ -180,6 +180,11 @@ a.sidebar-link:hover {
 .add{
     min-height: 90vh;
 }
+
+.wrap{
+        background-color: #eaeaea;
+        border-radius: 30px;
+    }
     </style>
 </head>
 
@@ -196,8 +201,15 @@ a.sidebar-link:hover {
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-user"></i>
+                    <a href="/homepage" class="sidebar-link">
+                        <i class="bi bi-house"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="/profile/{{ Auth::user()->id }}" class="sidebar-link">
+                        <i class="bi bi-person"></i>
                         <span>Profile</span>
                     </a>
                 </li>
@@ -223,6 +235,12 @@ a.sidebar-link:hover {
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a href="/kategori" class="sidebar-link">
+                            <i class="bi bi-list-ul"></i>
+                            <span>Kategori</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a href="/laporanpeminjam" class="sidebar-link">
                             <i class="bi bi-journal-text"></i>
                             <span>Laporan Peminjaman</span>
@@ -231,21 +249,15 @@ a.sidebar-link:hover {
                     @else
                     
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-popup"></i>
+                    <a href="/daftarpeminjaman" class="sidebar-link">
+                        <i class="bi bi-book"></i>
                         <span>Daftar Pinjaman</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-box2-heart"></i>
+                    <a href="/koleksi" class="sidebar-link">
+                        <i class="bi bi-bookmark"></i>
                         <span>Koleksi</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-journal-text"></i>
-                        <span>Laporan Peminjaman</span>
                     </a>
                 </li>
                     @endif
@@ -263,15 +275,12 @@ a.sidebar-link:hover {
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <!-- Left Side Of Navbar -->
                             <ul class="navbar-nav ms-auto col-lg-4">
-                                @guest
                                 @auth
                                 @if (Auth::user()->role === 'user')
                                 <li class="nav-item dropdown p-2">
-                                    <a class="nav-link dropdown-toggle fw-bold text-dark">Kategori</a>
+                                    <a class="nav-link dropdown-toggle fw-bold text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">Kategori</a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a href="{{ url('') }}" class="dropdown-item">Romantis</a></li>
-                                        <li><a href="{{ url('') }}" class="dropdown-item">Komedi</a></li>
-                                        <li><a href="{{ url('') }}" class="dropdown-item">Komik</a></li>
+                                        
                                     </ul>
                                 </li>
                                 <li class="nav-item p-2">
@@ -282,7 +291,6 @@ a.sidebar-link:hover {
                                 </li>
                                 @endif
                                 @endauth
-                                @endguest
                             </ul>
                             <!-- Right Side Of Navbar -->
                             <ul class="navbar-nav ms-auto me-4 gap-4">
@@ -329,6 +337,8 @@ a.sidebar-link:hover {
             @yield('data')
             @yield('create')
             @yield('catalog')
+            @yield('detail')
+            @yield('kategori')
         </div>
     </div>
     

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PerpusController;
 use App\Models\Buku;
 use App\Models\Ulasan;
+use App\Models\Kategori;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,15 +22,19 @@ Route::get('/', function () {
     $buku = Buku::all();
     $ulasan = Ulasan::all();
     $populer = Buku::inRandomOrder()->get();
-    return view('user.homepage', compact('buku', 'populer', 'ulasan'));
+    $kategori_nav = Kategori::all()->take(5);
+    $kategori = Kategori::all()->take(7);
+    return view('user.homepage', compact('buku', 'populer', 'ulasan', 'kategori', 'kategori_nav'));
 });
 
 Route::get('/homepage', [App\Http\Controllers\PerpusController::class, 'katalog'])->name('homepage');
 Route::get('/buku/{bukuID}', [App\Http\Controllers\PerpusController::class, 'detail'])->name('detail');
 Route::post('/buku/{bukuID}/ulasan', [App\Http\Controllers\PerpusController::class, 'komen'])->name('komen');
 Route::post('/addkoleksi/{bukuID}', [App\Http\Controllers\PerpusController::class, 'store'])->name('simpan');
+Route::get('/koleksi', [App\Http\Controllers\PerpusController::class, 'showkoleksi'])->name('showkoleksi');
 Route::post('/buku/proses/peminjaman/{bukuID}', [App\Http\Controllers\PerpusController::class, 'pinjam'])->name('pinjam');
 Route::get('/buku/peminjaman/{bukuID}', [App\Http\Controllers\PerpusController::class, 'showpinjam'])->name('showpinjam');
+Route::get('/daftarpeminjaman', [App\Http\Controllers\PerpusController::class, 'datapinjam'])->name('datapinjam');
 Route::get('/profile/{id}', [App\Http\Controllers\PerpusController::class, 'profile'])->name('profile');
 Route::get('/profile/edit/{id}', [App\Http\Controllers\PerpusController::class, 'editprofile'])->name('editprofile');
 Route::put('/profile/edit/proses/{id}', [App\Http\Controllers\PerpusController::class, 'prosesedit'])->name('prosesedit');
@@ -70,6 +75,7 @@ Route::middleware('auth', 'auth.admin')->group(function(){
     Route::put('/editpetugas/proses/{id}', [App\Http\Controllers\PerpusController::class, 'editptgs'])->name('editptgs');
     Route::delete('/delete/petugas/{id}', [App\Http\Controllers\PerpusController::class, 'deletepetugas'])->name('deletedata');
 
+    Route::get('/kategori', [App\Http\Controllers\PerpusController::class, 'showkategori'])->name('showkategori');
     //tampil form create kategori
     Route::get('/createkategori', [App\Http\Controllers\PerpusController::class, 'createkategori'])->name('createkategori');
 
@@ -82,6 +88,10 @@ Route::middleware('auth', 'auth.admin')->group(function(){
     //proses relasi
     Route::post('/prosesrelasi', [App\Http\Controllers\PerpusController::class, 'addrelasi'])->name('prosesrelasi');
 
+    Route::get('/kategori/{kategoriID}', [App\Http\Controllers\PerpusController::class, 'viewkategori'])->name('view');
+
     Route::get('/laporanpeminjam', [App\Http\Controllers\PerpusController::class, 'showlaporan'])->name('laporan');
+    Route::get('/pengembalianbuku/{peminjamanID}', [App\Http\Controllers\PerpusController::class, 'ubahstatus'])->name('ubahstatus');
+    Route::post('/proses/pengembalianbuku/{peminjamanID}', [App\Http\Controllers\PerpusController::class, 'prosespengembalian'])->name('prosespengembalian');
     Route::get('/cetaklaporan', [App\Http\Controllers\PerpusController::class, 'cetaklaporan'])->name('cetaklaporan');
 });

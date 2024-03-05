@@ -57,10 +57,14 @@ class User extends Authenticatable
      */
 
     public function ulasan(){
-        return $this->hasMany(Ulasan::class, 'userID', 'id');
+        return $this->hasMany(Ulasan::class, 'userID');
     }
 
     public function peminjaman(){
-        return $this->hasMany(Peminjaman::class, 'userID', 'id');
+        return $this->hasMany(Peminjaman::class, 'userID');
+    }
+
+    public function koleksi(){
+        return $this->hasMany(Koleksi::class, 'userID');
     }
 }

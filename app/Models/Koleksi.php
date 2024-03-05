@@ -10,7 +10,7 @@ class Koleksi extends Model
     use HasFactory;
 
     protected $table = 'koleksi';
-    protected $primaryKey = 'bukuID';
+    protected $primaryKey = 'koleksiID';
     protected $fillable = [
         'userID',
         'bukuID',
@@ -18,11 +18,11 @@ class Koleksi extends Model
 
     public function buku()
     {
-        return $this->belongsToMany(Buku::class, 'bukuID', 'koleksiID');
+        return $this->belongsTo(Buku::class, 'bukuID', 'bukuID');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'userID', 'koleksiID');
+        return $this->belongsTo(User::class, 'userID', 'id');
     }
 }

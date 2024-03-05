@@ -11,21 +11,19 @@
                     <tr class="text-center">
                         <th>Cover</th>
                         <th>Judul</th>
-                        <th>Penulis</th>
-                        <th>Penerbit</th>
-                        <th>Tahun Terbit</th>
-                        <th>Kategori</th>
+                        <th>Tanggal Peminjaman</th>
+                        <th>Tanggal Pengembalian</th>
+                        <th>Status</th>
                     </tr>
-                    @foreach ($buku as $b)
+                    @foreach ($daftar as $d)
                     <tr class="text-center" style="vertical-align: middle;">
                         <td>
-                            <img src="{{ asset('images') }}/{{ $b->gambar }}" alt="" class="img-fluid" style="width: 85px;">
+                            <img src="{{ asset('images') }}/{{ $d->buku['gambar'] }}" alt="" class="img-fluid" style="width: 85px;">
                         </td>
-                        <td>{{ $b->judul }}</td>
-                        <td>{{ $b->penulis }}</td>
-                        <td>{{ $b->penerbit }}</td>
-                        <td>{{ $b->tahunterbit }}</td>
-                        <td>{{ $b->kategori }}</td>
+                        <td>{{ $d->buku['judul'] }}</td>
+                        <td>{{ $d->tanggalpeminjaman }}</td>
+                        <td>{{ $d->tanggalpengembalian }}</td>
+                        <td>{{ $d->status }}</td>
                     </tr>
                     @endforeach
                 </table>

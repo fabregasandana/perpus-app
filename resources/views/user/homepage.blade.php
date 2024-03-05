@@ -44,13 +44,9 @@
 @section('content-1')
     <div class="recomend container-sm">
         <ul class="d-flex flex-row justify-content-around align-items-center navbar-nav">
-            <li><a href="" class="nav-link">Komedi</a></li>
-            <li><a href="" class="nav-link">Romantis</a></li>
-            <li><a href="" class="nav-link">Pendidikan</a></li>
-            <li><a href="" class="nav-link">Cerpen</a></li>
-            <li><a href="" class="nav-link">Novel</a></li>
-            <li><a href="" class="nav-link">Majalah</a></li>
-            <li><a href="" class="nav-link">Ensiklopedia</a></li>
+            @foreach($kategori as $k)
+            <li><a href="/kategori/{{ $k->kategoriID }}" class="btn" role="button">{{ $k->namakategori }}</a></li>
+            @endforeach
         </ul>
     </div>
     <div class="container-fluid col-lg-12 d-flex flex-column justify-content-end p-5 mt-5">
@@ -74,7 +70,7 @@
                         {{-- <p>{{ $b->ulasanbuku['rating'] }}</p> --}}
                     </div>
                     <div class="title-book">
-                        <p class="fs-5 fw-bold">Mantappu Jiwa</p>
+                        <p class="fs-5 fw-bold">{{ $b->judul }}</p>
                     </div>
                 </div>
             </a>
@@ -94,21 +90,17 @@
                 </div>
                 <a href="/homepage" class="btn col-lg-12" role="button">Lebih Banyak</a>
             </div>
-            @foreach ($populer as $p)
-            <a href="" class="col-lg-2" style="text-decoration: none">
+            @foreach ($populer as $b)
+            <a href="/buku/{{ $b->bukuID }}" class="col-lg-2" style="text-decoration: none">
                 <div class="card d-flex align-items-center justify-content-center book border-0 p-0">
                     <div class="wrapper border border-secondary border-1 p-0">
-                        <img src="{{ asset('/images')}}/{{ $p->gambar }}" alt="" class="img-fluid cover">
+                        <img src="{{ asset('/images')}}/{{ $b->gambar }}" alt="" class="img-fluid cover">
                     </div>
                     <div class="rate">
-                        <span class="bi bi-star-fill checked"></span>
-                        <span class="bi bi-star-fill checked"></span>
-                        <span class="bi bi-star-fill checked"></span>
-                        <span class="bi bi-star-fill checked"></span>
-                        <span class="bi bi-star-fill checked"></span>
+                        
                     </div>
                     <div class="title-book">
-                        <p class="fs-5 fw-bold">Mantappu Jiwa</p>
+                        <p class="fs-5 fw-bold">{{ $b->judul }}</p>
                     </div>
                 </div>
             </a>

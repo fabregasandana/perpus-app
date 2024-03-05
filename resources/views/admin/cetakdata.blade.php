@@ -7,7 +7,7 @@
     <title>Document</title>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body>
+<body onload="window.print()">
     
     <div class="row">
         <div class="col-12">

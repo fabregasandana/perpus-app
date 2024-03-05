@@ -3,6 +3,7 @@
 @section('catalog')
     <div class="container-fluid mt-5">
         <div class="row gap-5">
+            <h1>{{ $kategori->namakategori }}</h1>
             @foreach ($buku as $b)
             <div class="col-md-2 d-flex justify-content-center">
                 <div class="card col-md-12 col-sm-6 col-lg-12 d-flex align-items-center">
