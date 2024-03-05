@@ -57,89 +57,28 @@
         <div class="rating">
             <p class="h3 fw-bold">Top Rating</p>
         </div>
-        <div class="container-fluid d-flex flex-row justify-content-between align-items-center p-0 mt-3 gap-5 ">
-            
-            <div class="card d-flex align-items-center border-0 more">
+        <div class="container-fluid d-flex flex-row justify-content-start align-items-center p-0 mt-3 gap-3 ">
+            <div class="card d-flex align-items-center border-0 more col-lg-2">
                 <div class="section overflow-hidden">
                     <img src="{{ asset('/images/banner-wmn.png') }}" alt="" class="img-fluid">
                 </div>
-                <a href="" class="btn" role="button">Lebih Banyak</a>
+                <a href="/homepage" class="btn col-lg-12" role="button">Lebih Banyak</a>
             </div>
-            <div class="card d-flex flex-column align-items-center justify-content-center book border-0 p-0">
-                <div class="wrapper border border-secondary border-1 p-0">
-                    <img src="{{ asset('/images/mantappu.jpg') }}" alt="" class="img-fluid cover">
+            @foreach ($buku as $b)
+            <a href="/buku/{{ $b->bukuID }}" class="col-lg-2" style="text-decoration: none">
+                <div class="card d-flex flex-column align-items-center justify-content-center book border-0 p-0">
+                    <div class="wrapper border border-secondary border-1 p-0">
+                        <img src="{{ asset('/images')}}/{{ $b->gambar }}" alt="" class="img-fluid cover">
+                    </div>
+                    <div class="rate">
+                        {{-- <p>{{ $b->ulasanbuku['rating'] }}</p> --}}
+                    </div>
+                    <div class="title-book">
+                        <p class="fs-5 fw-bold">Mantappu Jiwa</p>
+                    </div>
                 </div>
-                <div class="rate">
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                </div>
-                <div class="title-book">
-                    <p class="fs-5 fw-bold">Mantappu Jiwa</p>
-                </div>
-            </div>
-            <div class="card d-flex flex-column align-items-center justify-content-center book border-0 p-0">
-                <div class="wrapper border border-secondary border-1 p-0">
-                    <img src="{{ asset('/images/mantappu.jpg') }}" alt="" class="img-fluid cover">
-                </div>
-                <div class="rate">
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                </div>
-                <div class="title-book">
-                    <p class="fs-5 fw-bold">Mantappu Jiwa</p>
-                </div>
-            </div>
-            <div class="card d-flex flex-column align-items-center justify-content-center book border-0 p-0">
-                <div class="wrapper border border-secondary border-1 p-0">
-                    <img src="{{ asset('/images/mantappu.jpg') }}" alt="" class="img-fluid cover">
-                </div>
-                <div class="rate">
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                </div>
-                <div class="title-book">
-                    <p class="fs-5 fw-bold">Mantappu Jiwa</p>
-                </div>
-            </div>
-            <div class="card d-flex flex-column align-items-center justify-content-center book border-0 p-0">
-                <div class="wrapper border border-secondary border-1 p-0">
-                    <img src="{{ asset('/images/mantappu.jpg') }}" alt="" class="img-fluid cover">
-                </div>
-                <div class="rate">
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                </div>
-                <div class="title-book">
-                    <p class="fs-5 fw-bold">Mantappu Jiwa</p>
-                </div>
-            </div>
-            <div class="card d-flex flex-column align-items-center justify-content-center book border-0 p-0">
-                <div class="wrapper border border-secondary border-1 p-0">
-                    <img src="{{ asset('/images/mantappu.jpg') }}" alt="" class="img-fluid cover">
-                </div>
-                <div class="rate">
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                </div>
-                <div class="title-book">
-                    <p class="fs-5 fw-bold">Mantappu Jiwa</p>
-                </div>
-            </div>
+            </a>
+            @endforeach
         </div>
     </div>
 
@@ -148,88 +87,32 @@
         <div class="rating">
             <p class="h3 fw-bold">Baru Dirilis</p>
         </div>
-        <div class="container-fluid d-flex flex-row justify-content-between align-items-center p-0 mt-3 gap-5 ">
-            <div class="card d-flex align-items-center border-0 more">
+        <div class="container-fluid d-flex flex-row justify-content-between align-items-center p-0 mt-3 gap-3 ">
+            <div class="card d-flex align-items-center border-0 more col-lg-2">
                 <div class="section overflow-hidden">
                     <img src="{{ asset('/images/banner-mn.png') }}" alt="" class="img-fluid">
                 </div>
-                <a href="" class="btn" role="button">Lebih Banyak</a>
+                <a href="/homepage" class="btn col-lg-12" role="button">Lebih Banyak</a>
             </div>
-            <div class="card align-items-center book border-0 p-0">
-                <div class="wrapper border border-secondary border-1 p-0">
-                    <img src="{{ asset('/images/mantappu.jpg') }}" alt="" class="img-fluid cover">
+            @foreach ($populer as $p)
+            <a href="" class="col-lg-2" style="text-decoration: none">
+                <div class="card d-flex align-items-center justify-content-center book border-0 p-0">
+                    <div class="wrapper border border-secondary border-1 p-0">
+                        <img src="{{ asset('/images')}}/{{ $p->gambar }}" alt="" class="img-fluid cover">
+                    </div>
+                    <div class="rate">
+                        <span class="bi bi-star-fill checked"></span>
+                        <span class="bi bi-star-fill checked"></span>
+                        <span class="bi bi-star-fill checked"></span>
+                        <span class="bi bi-star-fill checked"></span>
+                        <span class="bi bi-star-fill checked"></span>
+                    </div>
+                    <div class="title-book">
+                        <p class="fs-5 fw-bold">Mantappu Jiwa</p>
+                    </div>
                 </div>
-                <div class="rate">
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                </div>
-                <div class="title-book">
-                    <p class="fs-5 fw-bold">Mantappu Jiwa</p>
-                </div>
-            </div>
-            <div class="card d-flex flex-column align-items-center justify-content-center book border-0 p-0">
-                <div class="wrapper border border-secondary border-1 p-0">
-                    <img src="{{ asset('/images/mantappu.jpg') }}" alt="" class="img-fluid cover">
-                </div>
-                <div class="rate">
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                </div>
-                <div class="title-book">
-                    <p class="fs-5 fw-bold">Mantappu Jiwa</p>
-                </div>
-            </div>
-            <div class="card d-flex flex-column align-items-center justify-content-center book border-0 p-0">
-                <div class="wrapper border border-secondary border-1 p-0">
-                    <img src="{{ asset('/images/mantappu.jpg') }}" alt="" class="img-fluid cover">
-                </div>
-                <div class="rate">
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                </div>
-                <div class="title-book">
-                    <p class="fs-5 fw-bold">Mantappu Jiwa</p>
-                </div>
-            </div>
-            <div class="card d-flex flex-column align-items-center justify-content-center book border-0 p-0">
-                <div class="wrapper border border-secondary border-1 p-0">
-                    <img src="{{ asset('/images/mantappu.jpg') }}" alt="" class="img-fluid cover">
-                </div>
-                <div class="rate">
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                </div>
-                <div class="title-book">
-                    <p class="fs-5 fw-bold">Mantappu Jiwa</p>
-                </div>
-            </div>
-            <div class="card d-flex flex-column align-items-center justify-content-center book border-0 p-0">
-                <div class="wrapper border border-secondary border-1 p-0">
-                    <img src="{{ asset('/images/mantappu.jpg') }}" alt="" class="img-fluid cover">
-                </div>
-                <div class="rate">
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                    <span class="bi bi-star-fill checked"></span>
-                </div>
-                <div class="title-book">
-                    <p class="fs-5 fw-bold">Mantappu Jiwa</p>
-                </div>
-            </div>
+            </a>
+            @endforeach
         </div>
     </div>
 

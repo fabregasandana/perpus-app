@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PerpusController;
+use App\Models\Buku;
+use App\Models\Ulasan;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +18,10 @@ use App\Http\Controllers\PerpusController;
 */
 
 Route::get('/', function () {
-    return view('user.homepage');
+    $buku = Buku::all();
+    $ulasan = Ulasan::all();
+    $populer = Buku::inRandomOrder()->get();
+    return view('user.homepage', compact('buku', 'populer', 'ulasan'));
 });
 
 Route::get('/homepage', [App\Http\Controllers\PerpusController::class, 'katalog'])->name('homepage');
@@ -28,9 +33,9 @@ Route::get('/buku/peminjaman/{bukuID}', [App\Http\Controllers\PerpusController::
 Route::get('/profile/{id}', [App\Http\Controllers\PerpusController::class, 'profile'])->name('profile');
 Route::get('/profile/edit/{id}', [App\Http\Controllers\PerpusController::class, 'editprofile'])->name('editprofile');
 Route::put('/profile/edit/proses/{id}', [App\Http\Controllers\PerpusController::class, 'prosesedit'])->name('prosesedit');
+
+
 Auth::routes();
-
-
 Route::middleware('auth', 'auth.admin')->group(function(){
     Route::get('/dashboard', [App\Http\Controllers\PerpusController::class, 'dashboard'])->name('dashboard');
 

@@ -191,7 +191,7 @@ a.sidebar-link:hover {
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
-                    <a href="/homepage">dPerpus</a>
+                    <a href="/">dPerpus</a>
                 </div>
             </div>
             <ul class="sidebar-nav">

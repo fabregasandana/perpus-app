@@ -15,7 +15,7 @@ class Buku extends Model
 
     public function ulasan()
     {
-        return $this->hasMany(Ulasan::class, 'userID', 'bukuID');
+        return $this->hasMany(Ulasan::class, 'bukuID');
     }
 
     public function koleksi()

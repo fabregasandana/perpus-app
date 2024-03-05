@@ -21,9 +21,23 @@ use Illuminate\Support\Facades\Hash;
         return view ('user.homepage', compact('buku'));
     }
 
+    //Detail
+    public function detail($bukuID){
+        $buku = Buku::find($bukuID);
+        $u = $buku->ulasan;
+        $ulasan = Ulasan::all();
+        return view('user.detailbuku', compact('buku', 'ulasan'));
+    }
+
+    //Katalog
+    public function katalog(){
+        $buku = Buku::all();
+        return view('user.catalog', compact('buku'));
+    }
+
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['detail', 'index']]);
     }
 
     public function dashboard(){
@@ -157,17 +171,8 @@ use Illuminate\Support\Facades\Hash;
         $user->delete();
         return redirect('/datauser');
     }
-    //Katalog
-    public function katalog(){
-        $buku = Buku::all();
-        return view('user.catalog', compact('buku'));
-    }
-    //Detail
-    public function detail($bukuID){
-        $buku = Buku::find($bukuID);
-        $ulasan = Ulasan::all();
-        return view('user.detailbuku', compact('buku', 'ulasan'));
-    }
+    
+    
     //Input Komen
     public function komen(Request $request, $bukuID){
         $user = Auth::user()->id;

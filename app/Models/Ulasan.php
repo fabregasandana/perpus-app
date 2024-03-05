@@ -22,7 +22,7 @@ class Ulasan extends Model
 
     public function buku()
     {
-        return $this->belongsTo(Buku::class, 'bukuID', 'ulasanID');
+        return $this->belongsTo(Buku::class, 'bukuID', 'bukuID');
     }
 
     public function user()
